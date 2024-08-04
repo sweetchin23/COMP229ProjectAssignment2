@@ -1,29 +1,38 @@
-const mongoose = require('mongoose');
+// models/appointment.model.js
+
+import mongoose from 'mongoose';
 
 const AppointmentSchema = new mongoose.Schema({
   appointmentID: {
     type: String,
-    required: 'Appointment ID is required'
+    required: true,
+    unique: true
+  },
+  patientID: {
+    type: String,
+    type: mongoose.Schema.ObjectId,
+    ref: 'Appointment',
+    required: true
   },
   dentistID: {
     type: String,
-    required: 'Dentist ID is required'
+    required: true
   },
   appointmentDate: {
     type: Date,
-    required: 'Appointment date is required'
+    required: true
   },
   appointmentTime: {
-    type: Date,
-    required: 'Appointment time is required'
+    type: String, // Use String instead of Date for time
+    required: true
   },
   treatmentType: {
     type: String,
-    required: 'Treatment type is required'
+    required: true
   },
   status: {
     type: String,
-    required: 'Status is required'
+    required: true
   },
   created: {
     type: Date,
@@ -35,4 +44,4 @@ const AppointmentSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Appointment', AppointmentSchema);
+export default mongoose.model('Appointment', AppointmentSchema);

@@ -7,10 +7,11 @@ import Signin from './lib/Signin.jsx';
 import Profile from './user/Profile.jsx';
 import PrivateRoute from './lib/PrivateRoute.jsx';
 import EditProfile from './user/EditProfile.jsx';
-import PatientManagement from './user/PatientManagement.jsx';
-import AppointmentScheduling from './user/AppointmentScheduling.jsx';
-import DentistProfiles from './user/DentistProfiles.jsx';
-import Invoices from './user/Invoices.jsx';
+import PatientManagement from './patient/PatientManagement.jsx';
+import AppointmentScheduling from './appointment/AppointmentScheduling.jsx';
+import DentistProfiles from './dentist/DentistProfiles.jsx';
+import Invoices from './invoice/Invoices.jsx';
+import TreatmentPlanManagement from './treatmentplan/TreatmentPlanManagement';
 import Menu from './core/Menu';
 
 function MainRouter() {
@@ -55,6 +56,14 @@ function MainRouter() {
                     }
                 />
                 <Route
+                    path="/treatmentplans"
+                    element={
+                        <PrivateRoute>
+                            <TreatmentPlanManagement />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
                     path="/user/edit/:userId"
                     element={
                         <PrivateRoute>
@@ -68,4 +77,4 @@ function MainRouter() {
     );
 }
 
-export default MainRouter;
+export default MainRouter

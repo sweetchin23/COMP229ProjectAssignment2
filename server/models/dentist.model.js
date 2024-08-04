@@ -1,34 +1,30 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const DentistSchema = new mongoose.Schema({
-  dentistID: {
-    type: String,
-    required: 'Dentist ID is required'
-  },
   firstName: {
     type: String,
-    required: 'First name is required'
+    required: true
   },
   lastName: {
     type: String,
-    required: 'Last name is required'
+    required: true
   },
   specialization: {
     type: String,
-    required: 'Specialization is required'
+    required: true
   },
   phone: {
     type: String,
-    required: 'Phone number is required'
+    required: true
   },
   email: {
     type: String,
-    required: 'Email is required',
-    match: [/.+\@.+\..+/, 'Please fill a valid email address']
+    required: true,
+    unique: true
   },
   workingHours: {
     type: String,
-    required: 'Working hours are required'
+    required: true
   },
   created: {
     type: Date,
@@ -40,4 +36,4 @@ const DentistSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Dentist', DentistSchema);
+export default mongoose.model('Dentist', DentistSchema);

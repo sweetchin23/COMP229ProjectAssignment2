@@ -1,40 +1,40 @@
-import React, { useState } from 'react'
-import IconButton from '@material-ui/core/IconButton'
-import Delete from '@material-ui/icons/Delete'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Button from '@material-ui/core/Button'
-import auth from '../lib/auth-helper.js'
-import { remove } from './api-patient.js'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import IconButton from '@material-ui/core/IconButton';
+import Delete from '@material-ui/icons/Delete';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import auth from '../lib/auth-helper.js';
+import { remove } from './api-patient.js'; // Update with the correct path
+import { useNavigate } from 'react-router-dom';
 
 export default function DeletePatient({ patientId }) {
-  const [open, setOpen] = useState(false)
-  const navigate = useNavigate()
-  const jwt = auth.isAuthenticated()
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const jwt = auth.isAuthenticated();
 
   const handleClickOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const handleClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const deleteAccount = () => {
     remove({
       patientId: patientId
     }, { t: jwt.token }).then((data) => {
       if (data && data.error) {
-        console.log(data.error)
+        console.log(data.error);
       } else {
-        navigate('/patients', { replace: true })
+        navigate('/patients', { replace: true });
       }
-    })
-  }
+    });
+  };
 
   return (
     <span>
@@ -58,5 +58,5 @@ export default function DeletePatient({ patientId }) {
         </DialogActions>
       </Dialog>
     </span>
-  )
+  );
 }

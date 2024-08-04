@@ -1,12 +1,21 @@
-const createInvoice = async (invoice) => {
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('jwtToken'); // Assuming the token is stored in localStorage
+  return {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  };
+};
+
+const createTreatmentPlan = async (treatmentPlan) => {
     try {
-      let response = await fetch('/api/invoices/', {
+      let response = await fetch('/api/treatmentplans/', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(invoice)
+        body: JSON.stringify(treatmentPlan)
       });
       return await response.json();
     } catch (err) {
@@ -14,9 +23,9 @@ const createInvoice = async (invoice) => {
     }
   };
   
-  const listInvoices = async (signal) => {
+  const listTreatmentPlans = async (signal) => {
     try {
-      let response = await fetch('/api/invoices/', {
+      let response = await fetch('/api/treatmentplans/', {
         method: 'GET',
         signal: signal,
       });
@@ -26,9 +35,9 @@ const createInvoice = async (invoice) => {
     }
   };
   
-  const readInvoice = async (params, signal) => {
+  const readTreatmentPlan = async (params, signal) => {
     try {
-      let response = await fetch('/api/invoices/' + params.invoiceId, {
+      let response = await fetch('/api/treatmentplans/' + params.treatmentPlanId, {
         method: 'GET',
         signal: signal,
         headers: {
@@ -42,15 +51,15 @@ const createInvoice = async (invoice) => {
     }
   };
   
-  const updateInvoice = async (params, invoice) => {
+  const updateTreatmentPlan = async (params, treatmentPlan) => {
     try {
-      let response = await fetch('/api/invoices/' + params.invoiceId, {
+      let response = await fetch('/api/treatmentplans/' + params.treatmentPlanId, {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(invoice)
+        body: JSON.stringify(treatmentPlan)
       });
       return await response.json();
     } catch (err) {
@@ -58,9 +67,9 @@ const createInvoice = async (invoice) => {
     }
   };
   
-  const removeInvoice = async (params) => {
+  const removeTreatmentPlan = async (params) => {
     try {
-      let response = await fetch('/api/invoices/' + params.invoiceId, {
+      let response = await fetch('/api/treatmentplans/' + params.treatmentPlanId, {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
@@ -73,5 +82,5 @@ const createInvoice = async (invoice) => {
     }
   };
   
-  export { createInvoice, listInvoices, readInvoice, updateInvoice, removeInvoice };
+  export { createTreatmentPlan, listTreatmentPlans, readTreatmentPlan, updateTreatmentPlan, removeTreatmentPlan };
   

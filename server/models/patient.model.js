@@ -1,41 +1,43 @@
-const mongoose = require('mongoose');
+// models/patient.model.js
+import mongoose from 'mongoose';
 
 const PatientSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    trim: true,
-    required: 'First name is required'
+    required: true
   },
   lastName: {
     type: String,
-    trim: true,
-    required: 'Last name is required'
+    required: true
   },
   dateOfBirth: {
     type: Date,
-    required: 'Date of birth is required'
+    required: true
   },
   gender: {
     type: String,
-    required: 'Gender is required'
+    required: true
   },
   phone: {
     type: String,
-    required: 'Phone number is required'
+    required: true
   },
   email: {
     type: String,
-    trim: true,
-    match: [/.+\@.+\..+/, 'Please fill a valid email address'],
-    required: 'Email is required'
+    required: true,
+    unique: true
   },
   address: {
     type: String,
-    required: 'Address is required'
+    required: true
   },
   medicalHistory: {
     type: String,
-    required: 'Medical history is required'
+    required: true
+  },
+  patientID: {
+    type: String,
+    required: true
   },
   created: {
     type: Date,
@@ -47,4 +49,4 @@ const PatientSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Patient', PatientSchema);
+export default mongoose.model('Patient', PatientSchema);
