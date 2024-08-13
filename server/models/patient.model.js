@@ -59,38 +59,33 @@ const PatientSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true
-    required: true
   },
   lastName: {
     type: String,
-    required: true
     required: true
   },
   dateOfBirth: {
     type: Date,
     required: true
-    required: true
+
   },
   gender: {
     type: String,
     required: true
-    required: true
+
   },
   phone: {
     type: String,
     required: true
-    required: true
+
   },
   email: {
     type: String,
     required: true,
     unique: true
-    required: true,
-    unique: true
   },
   address: {
     type: String,
-    required: true
     required: true
   },
   medicalHistory: {
