@@ -1,34 +1,35 @@
-// models/appointment.model.js
-
 import mongoose from 'mongoose';
 
-const AppointmentSchema = new mongoose.Schema({
-  appointmentID: {
+const InvoiceSchema = new mongoose.Schema({
+  invoiceID: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   patientID: {
     type: String,
     required: true
   },
-  dentistID: {
+  appointmentID: {
     type: String,
     required: true
   },
-  appointmentDate: {
+  amount: {
+    type: Number,
+    required: true
+  },
+  paymentStatus: {
+    type: String,
+    required: true
+  },
+  dateIssued: {
     type: Date,
     required: true
   },
-  appointmentTime: {
-    type: String, // Use String instead of Date for time
-    required: true
-  },
-  treatmentType: {
+  firstName: {
     type: String,
     required: true
   },
-  status: {
+  lastName: {
     type: String,
     required: true
   },
@@ -42,4 +43,4 @@ const AppointmentSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model('Appointment', AppointmentSchema);
+export default mongoose.model('Invoice', InvoiceSchema);

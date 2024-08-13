@@ -1,11 +1,17 @@
-const express = require('express');
-const router = express.Router();
-const dentistController = require('../controllers/dentist.controller.js');
+import express from 'express'
+import dentistCtrl from '../controllers/dentist.controller.js'
+import authCtrl from '../controllers/auth.controller.js'
 
-router.post('/api/dentists', dentistController.createDentist);
-router.get('/api/dentists', dentistController.getDentists);
-router.get('/api/dentists/:id', dentistController.getDentistById);
-router.put('/api/dentists/:id', dentistController.updateDentist);
-router.delete('/api/dentists/:id', dentistController.deleteDentist);
+const router = express.Router()
+router.route('/api/dentists').post(dentistCtrl.create)
+router.route('/api/dentists').get(dentistCtrl.list)
+router.route('/api/dentists/:dentistId')
+  .get(authCtrl.requireSignin, dentistCtrl.read)
+  .put(authCtrl.requireSignin, authCtrl.hasAuthorization, dentistCtrl.update)
+  .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, dentistCtrl.remove)
+router.param('dentistId', dentistCtrl.dentistByID)
+router.route('/api/dentists/:dentistId').get(dentistCtrl.read)
+router.route('/api/dentists/:dentistId').put(dentistCtrl.update)
+router.route('/api/dentists/:dentistId').delete(dentistCtrl.remove)
 
-module.exports = router;
+export default router

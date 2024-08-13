@@ -1,55 +1,188 @@
-const Patient = require('../models/patient.model.js');
+// import Patient from '../models/patient.model.js';
+// import extend from 'lodash/extend.js';
+// import errorHandler from './error.controller.js';
 
-// Create a new patient
-exports.createPatient = async (req, res) => {
+// const create = async (req, res) => {
+//   const patient = new Patient(req.body);
+//   try {
+//     await patient.save();
+//     return res.status(200).json({ message: "Successfully added patient!" });
+//   } catch (err) {
+//     return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
+//   }
+// };
+
+// const list = async (req, res) => {
+//   try {
+//     let patients = await Patient.find();
+//     res.json(patients);
+//   } catch (err) {
+//     return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
+//   }
+// };
+
+// const patientByID = async (req, res, next, id) => {
+//   try {
+//     let patient = await Patient.findById(id);
+//     if (!patient) return res.status('400').json({ error: "Patient not found" });
+//     req.profile = patient;
+//     next();
+//   } catch (err) {
+//     return res.status('400').json({ error: "Could not retrieve patient" });
+//   }
+// };
+
+// const read = (req, res) => {
+//   return res.json(req.profile);
+// };
+
+// const update = async (req, res) => {
+//   try {
+//     let patient = req.profile;
+//     patient = extend(patient, req.body);
+//     patient.updated = Date.now();
+//     await patient.save();
+//     res.json(patient);
+//   } catch (err) {
+//     return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
+//   }
+// };
+
+// const remove = async (req, res) => {
+//   try {
+//     let patient = req.profile;
+//     let deletedPatient = await patient.deleteOne();
+//     res.json(deletedPatient);
+//   } catch (err) {
+//     return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
+//   }
+// };
+
+// export default { create, patientByID, read, list, remove, update };
+
+// import Patient from '../models/patient.model.js';
+// import extend from 'lodash/extend.js';
+// import errorHandler from './error.controller.js';
+
+// const create = async (req, res) => {
+//   const patient = new Patient(req.body);
+//   try {
+//     await patient.save();
+//     return res.status(200).json({ message: "Successfully added patient!" });
+//   } catch (err) {
+//     return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
+//   }
+// };
+
+// const list = async (req, res) => {
+//   try {
+//     let patients = await Patient.find();
+//     res.json(patients);
+//   } catch (err) {
+//     return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
+//   }
+// };
+
+// const patientByID = async (req, res, next, id) => {
+//   try {
+//     let patient = await Patient.findById(id);
+//     if (!patient) return res.status(400).json({ error: "Patient not found" });
+//     req.profile = patient;
+//     next();
+//   } catch (err) {
+//     return res.status(400).json({ error: "Could not retrieve patient" });
+//   }
+// };
+
+// const read = (req, res) => {
+//   return res.json(req.profile);
+// };
+
+// const update = async (req, res) => {
+//   try {
+//     let patient = req.profile;
+//     patient = extend(patient, req.body);
+//     patient.updated = Date.now();
+//     await patient.save();
+//     res.json(patient);
+//   } catch (err) {
+//     return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
+//   }
+// };
+
+// const remove = async (req, res) => {
+//   try {
+//     let patient = req.profile;
+//     let deletedPatient = await patient.deleteOne();
+//     res.json(deletedPatient);
+//   } catch (err) {
+//     return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
+//   }
+// };
+
+// export default { create, patientByID, read, list, remove, update };
+
+
+//==============================================================
+
+import Patient from '../models/patient.model.js';
+import extend from 'lodash/extend.js';
+import errorHandler from './error.controller.js';
+
+const create = async (req, res) => {
+  const patient = new Patient(req.body);
   try {
-    const patient = new Patient(req.body);
     await patient.save();
-    res.status(201).send(patient);
+    return res.status(200).json({ message: "Successfully added patient!" });
   } catch (err) {
-    res.status(400).send(err);
+    return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
   }
 };
 
-// Get all patients
-exports.getPatients = async (req, res) => {
+const list = async (_req, res) => {
   try {
-    const patients = await Patient.find();
-    res.status(200).send(patients);
+    let patients = await Patient.find();
+    res.json(patients);
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
   }
 };
 
-// Get a patient by ID
-exports.getPatientById = async (req, res) => {
+const patientByID = async (req, res, next, id) => {
   try {
-    const patient = await Patient.findById(req.params.id);
-    if (!patient) return res.status(404).send();
-    res.status(200).send(patient);
+    let patient = await Patient.findById(id);
+    if (!patient) return res.status(400).json({ error: "Patient not found" });
+    req.profile = patient;
+    next();
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(400).json({ error: "Could not retrieve patient" });
   }
 };
 
-// Update a patient by ID
-exports.updatePatient = async (req, res) => {
+const read = (req, res) => {
+  return res.json(req.profile);
+};
+
+const update = async (req, res) => {
   try {
-    const patient = await Patient.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
-    if (!patient) return res.status(404).send();
-    res.status(200).send(patient);
+    let patient = req.profile;
+    patient = extend(patient, req.body);
+    patient.updated = Date.now();
+    await patient.save();
+    res.json(patient);
   } catch (err) {
-    res.status(400).send(err);
+    return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
   }
 };
 
-// Delete a patient by ID
-exports.deletePatient = async (req, res) => {
+const remove = async (req, res) => {
   try {
-    const patient = await Patient.findByIdAndDelete(req.params.id);
-    if (!patient) return res.status(404).send();
-    res.status(204).send();
+    let patient = req.profile;
+    let deletedPatient = await patient.deleteOne();
+    res.json(deletedPatient);
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(400).json({ error: errorHandler.getErrorMessage(err) });
   }
 };
+
+export default { create, patientByID, read, list, remove, update };

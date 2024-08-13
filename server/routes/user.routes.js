@@ -8,8 +8,7 @@ import express from 'express'
  router.route('/api/users').get(userCtrl.list)
  router.route('/api/users/:userId')
 .get(authCtrl.requireSignin, userCtrl.read)
-.put(authCtrl.requireSignin, authCtrl.hasAuthorization, 
-userCtrl.update)
+.put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
 .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, 
 userCtrl.remove)
 router.param('userId', userCtrl.userByID)
