@@ -77,7 +77,8 @@ const create = async (req, res) => {
   }
 };
 
-const list = async (_req, res) => {
+// Get all dentists
+exports.getDentists = async (req, res) => {
   try {
     let dentists = await Dentist.find();
     res.json(dentists);

@@ -5,12 +5,7 @@ import mongoose from 'mongoose';
 const AppointmentSchema = new mongoose.Schema({
   appointmentID: {
     type: String,
-    required: true,
-    unique: true
-  },
-  patientID: {
-    type: String,
-    required: true
+    required: 'Appointment ID is required'
   },
   dentistID: {
     type: String,

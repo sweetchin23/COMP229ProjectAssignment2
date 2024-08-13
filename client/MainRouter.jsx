@@ -279,4 +279,4 @@ function MainRouter() {
     );
 }
 
-export default MainRouter;
+export default MainRouter
