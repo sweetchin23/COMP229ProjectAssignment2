@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const DentistSchema = new mongoose.Schema({
+  dentistID: {
+    type: String,
+    required: true,
+    unique: true // Ensure that each dentistID is unique
+  },
   firstName: {
     type: String,
     required: true

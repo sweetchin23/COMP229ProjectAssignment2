@@ -75,7 +75,7 @@ const create = async (req, res) => {
   }
 };
 
-const list = async (req, res) => {
+const list = async (_req, res) => {
   try {
     let appointments = await Appointment.find().select('appointmentID patientID dentistID appointmentDate appointmentTime treatmentType status');
     res.json(appointments);

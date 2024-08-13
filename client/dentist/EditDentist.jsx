@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
 import auth from '../lib/auth-helper.js';
-import { readDentist, updateDentist } from './api-dentist.js'; // Corrected import
+import { readDentist, updateDentist } from './api-dentist.js';
 import { Navigate, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -41,6 +41,7 @@ export default function EditDentist() {
   const classes = useStyles();
   const { dentistId } = useParams();
   const [values, setValues] = useState({
+    dentistID: '',
     firstName: '',
     lastName: '',
     specialization: '',
@@ -61,6 +62,7 @@ export default function EditDentist() {
       } else {
         setValues({
           ...values,
+          dentistID: data.dentistID, // Include dentistID
           firstName: data.firstName,
           lastName: data.lastName,
           specialization: data.specialization,
@@ -77,6 +79,7 @@ export default function EditDentist() {
 
   const clickSubmit = () => {
     const dentist = {
+      dentistID: values.dentistID || undefined, // Ensure dentistID is sent
       firstName: values.firstName || undefined,
       lastName: values.lastName || undefined,
       specialization: values.specialization || undefined,
@@ -107,6 +110,7 @@ export default function EditDentist() {
         <Typography variant="h6" className={classes.title}>
           Edit Dentist
         </Typography>
+        <TextField id="dentistID" label="Dentist ID" className={classes.textField} value={values.dentistID} onChange={handleChange('dentistID')} margin="normal" /><br />
         <TextField id="firstName" label="First Name" className={classes.textField} value={values.firstName} onChange={handleChange('firstName')} margin="normal" /><br />
         <TextField id="lastName" label="Last Name" className={classes.textField} value={values.lastName} onChange={handleChange('lastName')} margin="normal" /><br />
         <TextField id="specialization" label="Specialization" className={classes.textField} value={values.specialization} onChange={handleChange('specialization')} margin="normal" /><br />

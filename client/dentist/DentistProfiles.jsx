@@ -17,6 +17,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
+import { createDentist, listDentists, updateDentist, removeDentist } from './api-dentist.js';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -59,9 +60,8 @@ const DentistProfiles = () => {
 
   const fetchDentists = async () => {
     try {
-      const response = await fetch('/api/dentists');
-      const data = await response.json();
-      setDentists(data);
+      const response = await listDentists();
+      setDentists(response);
     } catch (error) {
       console.error('Error fetching dentists:', error);
     }
@@ -78,14 +78,8 @@ const DentistProfiles = () => {
   const handleAddDentist = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/dentists', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dentist),
-      });
-      if (response.ok) {
+      const response = await createDentist(dentist);
+      if (response) {
         fetchDentists();
         setDentist({
           dentistID: '',
@@ -106,10 +100,8 @@ const DentistProfiles = () => {
 
   const handleDeleteDentist = async (id) => {
     try {
-      const response = await fetch(`/api/dentists/${id}`, {
-        method: 'DELETE',
-      });
-      if (response.ok) {
+      const response = await removeDentist({ dentistId: id });
+      if (response) {
         fetchDentists();
       } else {
         console.error('Error deleting dentist');
@@ -129,7 +121,7 @@ const DentistProfiles = () => {
       email: dentist.email,
       workingHours: dentist.workingHours
     });
-    handleDeleteDentist(dentist._id);
+    handleDeleteDentist(dentist._id); // Delete to update (optional workflow)
   };
 
   return (
