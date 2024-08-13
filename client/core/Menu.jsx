@@ -121,6 +121,9 @@ export default function Menu() {
             <Link to="/invoices">
               <Button style={isActive(location, "/invoices")}>Invoices</Button>
             </Link>
+            <Link to="/treatmentPlan">
+              <Button style={isActive(location, "/treatmentPlan")}>Treatment Plan</Button>
+            </Link>
             <Link to={"/user/" + auth.isAuthenticated().user._id}>
               <Button style={isActive(location, "/user/" + auth.isAuthenticated().user._id)}>My Profile</Button>
             </Link>
