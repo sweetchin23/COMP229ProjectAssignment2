@@ -218,22 +218,6 @@ function MainRouter() {
                     }
                 />
                 <Route
-                    path="/patients/:patientId"
-                    element={
-                        <PrivateRoute>
-                            <PatientProfile />
-                        </PrivateRoute>
-                    }
-                />
-                <Route
-                    path="/patients/edit/:patientId"
-                    element={
-                        <PrivateRoute>
-                            <EditPatient />
-                        </PrivateRoute>
-                    }
-                />
-                <Route
                     path="/appointment_scheduling"
                     element={
                         <PrivateRoute>

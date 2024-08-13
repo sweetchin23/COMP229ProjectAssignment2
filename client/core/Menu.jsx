@@ -112,16 +112,6 @@ export default function Menu() {
             <Link to="/patient_management">
               <Button style={isActive(location, "/patient_management")}>Patient Management</Button>
             </Link>
-            {authenticatedUser && (
-              <>
-                <Link to={"/patients/" + authenticatedUser._id}>
-                  <Button style={isActive(location, "/patients/" + authenticatedUser._id)}>Patient Profile</Button>
-                </Link>
-                <Link to={"/user/" + authenticatedUser._id}>
-                  <Button style={isActive(location, "/user/" + authenticatedUser._id)}>My Profile</Button>
-                </Link>
-              </>
-            )}
             <Link to="/appointment_scheduling">
               <Button style={isActive(location, "/appointment_scheduling")}>Appointment Scheduling</Button>
             </Link>
