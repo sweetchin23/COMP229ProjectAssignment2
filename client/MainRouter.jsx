@@ -242,7 +242,7 @@ function MainRouter() {
                     }
                 />
                 <Route
-                    path="/treatmentplans"
+                    path="/treatmentPlan"
                     element={
                         <PrivateRoute>
                             <TreatmentPlanManagement />
