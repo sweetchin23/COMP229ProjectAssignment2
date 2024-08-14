@@ -216,7 +216,33 @@ const createPatient = async (patient) => {
     }
   }
   
-  const updatePatient = async (params, credentials, patient) => { 
+// const updatePatient = async (params, credentials, patient) => { 
+//   try {
+//       let response = await fetch('/api/patients/' + params.patientId, { 
+//           method: 'PUT',
+//           headers: {
+//               'Accept': 'application/json',
+//               'Content-Type': 'application/json',
+//               'Authorization': 'Bearer ' + credentials.t 
+//           },
+//           body: JSON.stringify(patient) 
+//       });
+//       if (response.status === 401) {
+//           console.error("Unauthorized: Redirecting to login...");
+//           // Optionally redirect to login or handle unauthorized access
+//           return;
+//       }
+//       if (!response.ok) {
+//           // Throw error if the response is not ok (like 400 or 500)
+//           throw new Error('Failed to update the patient.');
+//       }
+//       return await response.json();
+//   } catch(err) {
+//       console.log('Error in updatePatient:', err.message);
+//   }
+// }
+  
+const updatePatient = async (params, credentials, patient) => { 
     try {
         let response = await fetch('/api/patients/' + params.patientId, { 
             method: 'PUT',
@@ -230,13 +256,19 @@ const createPatient = async (patient) => {
         if (response.status === 401) {
             console.error("Unauthorized: Redirecting to login...");
             // Optionally redirect to login or handle unauthorized access
+            return;
+        }
+        if (!response.ok) {
+            // Throw error if the response is not ok (like 400 or 500)
+            throw new Error('Failed to update the patient.');
         }
         return await response.json();
     } catch(err) {
-        console.log(err);
+        console.log('Error in updatePatient:', err.message);
     }
   }
   
+
   const deletePatient = async (params, credentials) => { 
     try {
         let response = await fetch('/api/patients/' + params.patientId, { 
